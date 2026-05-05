@@ -85,3 +85,90 @@ def solidity_like_commit(
     salt3: bytes,
 ) -> bytes:
     who_b = bytes.fromhex(who[2:]) if who.startswith("0x") else bytes.fromhex(who)
+    body = abi_encode_packed(score, cursor_steps, wobble_seed, path_hash, nonce, epoch, who_b, salt2, salt3)
+    return keccak256(body)
+
+
+def abi_encode_packed(
+    score: int,
+    cursor_steps: int,
+    wobble_seed: int,
+    path_hash: bytes,
+    nonce: bytes,
+    epoch: int,
+    who: bytes,
+    salt2: bytes,
+    salt3: bytes,
+) -> bytes:
+    return (
+        score.to_bytes(32, "big", signed=False)
+        + cursor_steps.to_bytes(32, "big", signed=False)
+        + wobble_seed.to_bytes(32, "big", signed=False)
+        + path_hash
+        + nonce
+        + epoch.to_bytes(32, "big", signed=False)
+        + who
+        + salt2
+        + salt3
+    )
+
+
+class Spin77App(tk.Tk):
+    def __init__(self) -> None:
+        super().__init__()
+        self.title("spin77")
+        self.geometry("980x640")
+        self._rec = MouseTrailRecorder()
+        self._sim = HulaSim(seed=int(time.time()) % 1_000_000)
+        self._salt2 = bytes.fromhex("5a316b95a6129e2b04020eda5e59a23433833a841910f01589b7189aea020537")
+        self._salt3 = bytes.fromhex("c588a684a322fd0927cc3a87e3f1dc892974f28c627f1790412f2ebd30d19b63")
+        self._epoch = 1
+        self._who = DEFAULT_ADDRESS_A
+        self._build()
+
+    def _build(self) -> None:
+        top = ttk.Frame(self)
+        top.pack(fill=tk.BOTH, expand=True)
+        self.canvas = tk.Canvas(top, bg="#0b1020", highlightthickness=0)
+        self.canvas.pack(fill=tk.BOTH, expand=True)
+        self.canvas.bind("<Motion>", self._on_move)
+        self.canvas.bind("<Button-1>", self._on_click)
+        bot = ttk.Frame(self)
+        bot.pack(fill=tk.X)
+        self.lbl = ttk.Label(bot, text="trace the hoop with your mouse")
+        self.lbl.pack(side=tk.LEFT, padx=8, pady=6)
+        ttk.Button(bot, text="Preview commit", command=self._preview).pack(side=tk.RIGHT, padx=6, pady=6)
+        ttk.Button(bot, text="Copy deploy args", command=self._copy_deploy).pack(side=tk.RIGHT, padx=6, pady=6)
+        self._draw_hoop()
+
+    def _draw_hoop(self) -> None:
+        self.canvas.delete("hoop")
+        w = int(self.canvas.winfo_width() or 900)
+        h = int(self.canvas.winfo_height() or 520)
+        cx, cy = w // 2, h // 2
+        r = int(min(w, h) * 0.28)
+        wx, wy = self._sim.wobble(time.time() * 0.8)
+        self.canvas.create_oval(cx - r + wx * r, cy - r + wy * r, cx + r + wx * r, cy + r + wy * r, outline="#6ad7ff", width=3, tags="hoop")
+        self.after(33, self._draw_hoop)
+
+    def _on_move(self, e: tk.Event) -> None:
+        self._rec.push(float(e.x), float(e.y))
+
+    def _on_click(self, e: tk.Event) -> None:
+        self._rec.push(float(e.x), float(e.y))
+
+    def _preview(self) -> None:
+        path = self._rec.digest_path_hash()
+        score = min(999_999, max(1, len(self._rec.samples) * 13))
+        steps = min(50_000, max(1, len(self._rec.samples)))
+        wobble = int(time.time() * 1000) % 1_000_000_007
+        nonce = keccak256(struct.pack(">Q", int(time.time() * 1000)))
+        c = solidity_like_commit(score, steps, wobble, path, nonce, self._epoch, self._who, self._salt2, self._salt3)
+        self.lbl.config(text="commit 0x" + c.hex())
+
+    def _copy_deploy(self) -> None:
+        s = json.dumps([DEFAULT_ADDRESS_A, DEFAULT_ADDRESS_B, DEFAULT_ADDRESS_C], indent=2)
+        self.clipboard_clear()
+        self.clipboard_append(s)
+        self.lbl.config(text="copied constructor tuple")
+
