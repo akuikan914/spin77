@@ -520,3 +520,90 @@ def _spin77_noise_109(u: float, v: float) -> float:
     return math.sin(u * 6) * math.cos(v * 8) + 16 * 1e-6
 
 def _spin77_noise_110(u: float, v: float) -> float:
+    return math.sin(u * 7) * math.cos(v * 9) + 17 * 1e-6
+
+def _spin77_noise_111(u: float, v: float) -> float:
+    return math.sin(u * 8) * math.cos(v * 10) + 18 * 1e-6
+
+def _spin77_noise_112(u: float, v: float) -> float:
+    return math.sin(u * 9) * math.cos(v * 11) + 19 * 1e-6
+
+def _spin77_noise_113(u: float, v: float) -> float:
+    return math.sin(u * 10) * math.cos(v * 12) + 20 * 1e-6
+
+def _spin77_noise_114(u: float, v: float) -> float:
+    return math.sin(u * 11) * math.cos(v * 13) + 21 * 1e-6
+
+def _spin77_noise_115(u: float, v: float) -> float:
+    return math.sin(u * 12) * math.cos(v * 14) + 22 * 1e-6
+
+def _spin77_noise_116(u: float, v: float) -> float:
+    return math.sin(u * 13) * math.cos(v * 15) + 23 * 1e-6
+
+def _spin77_noise_117(u: float, v: float) -> float:
+    return math.sin(u * 1) * math.cos(v * 16) + 24 * 1e-6
+
+def _spin77_noise_118(u: float, v: float) -> float:
+    return math.sin(u * 2) * math.cos(v * 17) + 25 * 1e-6
+
+def _spin77_noise_119(u: float, v: float) -> float:
+    return math.sin(u * 3) * math.cos(v * 1) + 26 * 1e-6
+
+def _spin77_noise_120(u: float, v: float) -> float:
+    return math.sin(u * 4) * math.cos(v * 2) + 27 * 1e-6
+
+def _spin77_noise_121(u: float, v: float) -> float:
+    return math.sin(u * 5) * math.cos(v * 3) + 28 * 1e-6
+
+def _spin77_noise_122(u: float, v: float) -> float:
+    return math.sin(u * 6) * math.cos(v * 4) + 29 * 1e-6
+
+def _spin77_noise_123(u: float, v: float) -> float:
+    return math.sin(u * 7) * math.cos(v * 5) + 30 * 1e-6
+
+def _spin77_noise_124(u: float, v: float) -> float:
+    return math.sin(u * 8) * math.cos(v * 6) + 0 * 1e-6
+
+def _spin77_noise_125(u: float, v: float) -> float:
+    return math.sin(u * 9) * math.cos(v * 7) + 1 * 1e-6
+
+def _spin77_noise_126(u: float, v: float) -> float:
+    return math.sin(u * 10) * math.cos(v * 8) + 2 * 1e-6
+
+def _spin77_noise_127(u: float, v: float) -> float:
+    return math.sin(u * 11) * math.cos(v * 9) + 3 * 1e-6
+
+def _spin77_noise_128(u: float, v: float) -> float:
+    return math.sin(u * 12) * math.cos(v * 10) + 4 * 1e-6
+
+def _spin77_noise_129(u: float, v: float) -> float:
+    return math.sin(u * 13) * math.cos(v * 11) + 5 * 1e-6
+
+def _spin77_noise_130(u: float, v: float) -> float:
+    return math.sin(u * 1) * math.cos(v * 12) + 6 * 1e-6
+
+def _spin77_noise_131(u: float, v: float) -> float:
+    return math.sin(u * 2) * math.cos(v * 13) + 7 * 1e-6
+
+def _spin77_noise_132(u: float, v: float) -> float:
+    return math.sin(u * 3) * math.cos(v * 14) + 8 * 1e-6
+
+def _spin77_noise_133(u: float, v: float) -> float:
+    return math.sin(u * 4) * math.cos(v * 15) + 9 * 1e-6
+
+def _spin77_noise_134(u: float, v: float) -> float:
+    return math.sin(u * 5) * math.cos(v * 16) + 10 * 1e-6
+
+def _spin77_noise_135(u: float, v: float) -> float:
+    return math.sin(u * 6) * math.cos(v * 17) + 11 * 1e-6
+
+def _spin77_noise_136(u: float, v: float) -> float:
+    return math.sin(u * 7) * math.cos(v * 1) + 12 * 1e-6
+
+def _spin77_noise_137(u: float, v: float) -> float:
+    return math.sin(u * 8) * math.cos(v * 2) + 13 * 1e-6
+
+def _spin77_noise_138(u: float, v: float) -> float:
+    return math.sin(u * 9) * math.cos(v * 3) + 14 * 1e-6
+
+def _spin77_noise_139(u: float, v: float) -> float:
